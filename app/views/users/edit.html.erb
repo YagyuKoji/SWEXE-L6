@@ -1,0 +1,12 @@
+<h1>ユーザ編集画面</h1>
+
+<%= form_with model: @user ,action: :update do |f| %>
+  <%= f.label :uid, 'uid : ' %>
+  <%= f.text_field :uid %>
+  <%= f.label :pass, 'pass : ' %>
+  <%= f.text_field :pass %>
+  <%= f.submit "編集" %>
+<% end %>
+
+
+

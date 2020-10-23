@@ -1,0 +1,11 @@
+<% @tweets.each do |t| %>
+    ツイート : <%= t.message %> / 
+    user_id : <%= t.user_id %>
+    <%= link_to '削除', tweet_path(t.id), method: :delete %>
+    <%= link_to '編集', edit_tweet_path(t.id) %>
+    <br>
+<% end %>
+    
+
+<%= link_to 'ツイートする', new_tweet_path %>
+
