@@ -8,9 +8,10 @@ class TweetsController < ApplicationController
   end
   
   def create
-    @tweet = Tweet.new(message: params[:message], user_id: params[:user_id])
+    @tweet = Tweet.new(message: params[:message], user_id: User.find_by(uid: session[:login_uid]).id)
     if @tweet.save
-      redirect_to root_path
+      flash[:notice] = 'つぶやきが投稿されました'
+      redirect_to top_main_path
     else
       render :new
     end
@@ -19,6 +20,7 @@ class TweetsController < ApplicationController
   def destroy
     tweet = Tweet.find(params[:id])
     tweet.destroy
+    flash[:notice] = 'つぶやきが削除されました'
     redirect_to tweets_path
   end
 
@@ -29,10 +31,9 @@ class TweetsController < ApplicationController
   def update
     @tweet = Tweet.find(params[:id])
     if @tweet.update(message: params[:tweet][:message])
-      logger.debug("保存成功")
-      redirect_to root_path
+      flash[:notice] = '内容が編集されました'
+      redirect_to tweets_path
     else
-      logger.debug("保存失敗")
       render :edit
     end
   end

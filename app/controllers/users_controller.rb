@@ -8,9 +8,10 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(uid: params[:uid], pass: params[:pass])
+    @user = User.new(uid: params[:uid], pass: BCrypt::Password.create(params[:pass]), age: params[:age])
     if @user.save
-      redirect_to root_path
+      flash[:notice] = 'ユーザが登録されました'
+      render template: 'top/login'
     else
       render :new
     end
@@ -19,6 +20,7 @@ class UsersController < ApplicationController
   def destroy
     user = User.find(params[:id])
     user.destroy
+    flash[:notice] = 'ユーザが削除されました'
     redirect_to users_path
   end
   
@@ -28,7 +30,8 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
-    if @user.update(uid: params[:user][:uid], pass: params[:user][:pass])
+    if @user.update(uid: params[:user][:uid])
+      flash[:notice] = '内容が編集されました'
       redirect_to root_path
     else
       render :edit

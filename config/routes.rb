@@ -1,8 +1,18 @@
 Rails.application.routes.draw do
-resources :tweets, only: [:index, :new, :create, :destroy, :edit, :update]
+  # get 'top/main'
+  # get 'top/login'
+  # get 'top/logout'
+  resources :tweets, only: [:index, :new, :create, :destroy, :edit, :update]
   resources :users, only: [:index, :new, :create, :destroy, :edit, :update]
- 
-  root 'users#index'
+  resources :likes, only: [:create, :destroy]
+  get 'top/main'
+  post 'top/login'
+  get 'top/logout'
+  root 'top#main'
+  
+  # post 'likes/create'
+  # delete 'like/destroy'
+  
 end
 
 

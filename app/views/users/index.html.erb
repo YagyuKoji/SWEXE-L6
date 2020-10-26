@@ -1,12 +1,18 @@
+<h1>管理者画面(ユーザ管理)</h1>
+
+<p><% if flash[:notice] %>
+  <%= flash[:notice] %>
+<% end %></p>
+
 <% @users.each do |u| %>
-    uid : <%= u.uid %> /
-    pass : <%= u.pass %>
-    <%= link_to '削除', user_path(u.id), method: :delete %>
-    <%= link_to '編集', edit_user_path(u.id) %>
+    uid : <%= u.uid %> / 
+    pass : <%= u.pass %> / 
+    age : <%= u.age %>
     <br>
 <% end %>
     
 
-<%= link_to '登録', new_user_path %>
-<%= link_to 'ツイートを表示', tweets_path %>
+<p><%= link_to '管理者画面(ツイート管理)', tweets_path %></p>
+
+<p><%= link_to 'ログイン画面に戻る', top_main_path %></p>
 
